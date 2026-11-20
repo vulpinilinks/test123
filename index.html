@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Geschützter Bereich</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef1f5;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0;
+    color: #263445;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    background: #1769aa;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #10558c;
+}
+
+#meldung {
+    color: #d93025;
+    margin-top: 15px;
+}
+
+#inhalt {
+    display: none;
+    max-width: 900px;
+}
+
+#inhalt .logout {
+    max-width: 200px;
+    background: #555;
+}
+
+#inhalt .logout:hover {
+    background: #333;
+}
+
+.inhalt-text {
+    text-align: left;
+    line-height: 1.6;
+}
+
+#sitzung {
+    color: #777;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="container" id="login">
+
+    <h2>Geschützter Bereich</h2>
+
+    <p>Bitte Passwort eingeben, um fortzufahren.</p>
+
+    <input
+        type="password"
+        id="passwort"
+        placeholder="Passwort"
+        autocomplete="current-password"
+    >
+
+    <button onclick="anmelden()">Anmelden</button>
+
+    <p id="meldung"></p>
+
+</div>
+
+
+<!-- GESCHÜTZTER BEREICH -->
+
+<div class="container" id="inhalt">
+
+    <!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Linksammlung</title>
+
+<style>
+
+  :root {
+
+    --bg: #f4f6f8; --surface: #ffffff; --text: #1c2733; --muted: #5b6b7b;
+
+    --line: #dce2e8; --accent: #2f5d8a; --accent-soft: #e6eef6;
+
+    --header: #22313f; --header-text: #ffffff; --header-muted: #aebccb;
+
+    --shadow: 0 1px 2px rgba(20, 35, 50, .06);
+
+    --shadow-hover: 0 6px 18px rgba(20, 35, 50, .12);
+
+  }
+
+  @media (prefers-color-scheme: dark) {
+
+    :root {
+
+      --bg: #141b22; --surface: #1d2731; --text: #e6edf3; --muted: #93a3b3;
+
+      --line: #2c3a47; --accent: #7fb0e0; --accent-soft: #263646;
+
+      --header: #0f151b; --header-text: #ffffff; --header-muted: #93a3b3;
+
+      --shadow: none; --shadow-hover: 0 6px 18px rgba(0, 0, 0, .35);
+
+    }
+
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+
+    margin: 0; background: var(--bg); color: var(--text);
+
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+
+  }
+
+  header { background: var(--header); color: var(--header-text); }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+  header .wrap { padding-top: 44px; padding-bottom: 44px; }
+
+  h1 { font-size: clamp(1.7rem, 5vw, 2.3rem); font-weight: 650; margin: 0 0 8px; letter-spacing: -0.015em; }
+
+  .sub { margin: 0; color: var(--header-muted); max-width: 560px; }
+
+  .tools { margin-top: -26px; }
+
+  .search {
+
+    width: 100%; padding: 14px 16px; font: inherit; color: var(--text);
+
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+
+    box-shadow: var(--shadow-hover);
+
+  }
+
+  .search:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  main { padding-top: 8px; padding-bottom: 72px; }
+
+  section { margin-top: 36px; }
+
+  h2 {
+
+    font-size: .95rem; font-weight: 650; margin: 0 0 14px; color: var(--muted);
+
+    padding-bottom: 8px; border-bottom: 1px solid var(--line);
+
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+  .card {
+
+    display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+
+    background: var(--surface); color: inherit; text-decoration: none;
+
+    border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow);
+
+    transition: box-shadow .18s, border-color .18s, transform .18s;
+
+  }
+
+  .card:hover { box-shadow: var(--shadow-hover); border-color: var(--accent); transform: translateY(-1px); }
+
+  .mono {
+
+    flex: none; width: 40px; height: 40px; border-radius: 8px; display: grid; place-items: center;
+
+    background: var(--accent-soft); color: var(--accent); font-weight: 650; font-size: 1.05rem;
+
+  }
+
+  .body { flex: 1; min-width: 0; }
+
+  .title { display: block; font-weight: 600; }
+
+  .desc { display: block; font-size: .9rem; color: var(--muted); }
+
+  .host { display: block; font-size: .8rem; color: var(--accent); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .arrow { flex: none; color: var(--muted); font-size: 1.1rem; transition: color .18s, transform .18s; }
+
+  .card:hover .arrow { color: var(--accent); transform: translate(2px, -2px); }
+
+  .empty { display: none; color: var(--muted); margin-top: 32px; }
+
+  @media (prefers-reduced-motion: reduce) { .card, .arrow { transition: none; } .card:hover { transform: none; } }
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="wrap">
+
+    <h1>Linksammlung</h1>
+
+    <p class="sub">Ausgewählte Webseiten mit weiterführenden Informationen.</p>
+
+  </div>
+
+</header>
+
+
+<div class="wrap tools">
+
+  <input class="search" type="search" id="q" placeholder="Einträge durchsuchen" aria-label="Einträge durchsuchen">
+
+</div>
+
+
+<main class="wrap">
+
+  <div id="list"></div>
+
+  <p class="empty" id="empty">Keine passenden Einträge gefunden.</p>
+
+</main>
+
+
+<script>
+
+/* ============================================================
+
+   HIER BEARBEITEN: Pro Seite eine Zeile.
+
+   title = Name, url = Adresse der Homepage,
+
+   desc  = kurze Beschreibung (optional),
+
+   group = Überschrift, unter der der Eintrag erscheint (optional).
+
+   Zeile kopieren, anpassen, fertig. Das Komma am Ende nicht vergessen!
+
+   ============================================================ */
+
+const LINKS = [
+
+  { group: "Information", title: "Beispielseite 1", url: "https://example.com", desc: "Kurze Beschreibung der Seite" },
+
+  { group: "Information", title: "Beispielseite 2", url: "https://example.org", desc: "Kurze Beschreibung der Seite" },
+
+  { group: "Information", title: "Beispielseite 3", url: "https://example.net" },
+
+  { group: "Information", title: "Beispielseite 4", url: "https://example.com/4" },
+
+  { group: "Information", title: "Beispielseite 5", url: "https://example.com/5" },
+
+  { group: "Information", title: "Beispielseite 6", url: "https://example.com/6" },
+
+  { group: "Partner", title: "Beispielseite 7", url: "https://example.com/7", desc: "Kurze Beschreibung der Seite" },
+
+  { group: "Partner", title: "Beispielseite 8", url: "https://example.com/8" },
+
+  { group: "Partner", title: "Beispielseite 9", url: "https://example.com/9" },
+
+  { group: "Partner", title: "Beispielseite 10", url: "https://example.com/10" },
+
+  { group: "Partner", title: "Beispielseite 11", url: "https://example.com/11" },
+
+  { group: "Partner", title: "Beispielseite 12", url: "https://example.com/12" },
+
+  { group: "Services", title: "Beispielseite 13", url: "https://example.com/13", desc: "Kurze Beschreibung der Seite" },
+
+  { group: "Services", title: "Beispielseite 14", url: "https://example.com/14" },
+
+  { group: "Services", title: "Beispielseite 15", url: "https://example.com/15" },
+
+  { group: "Services", title: "Beispielseite 16", url: "https://example.com/16" },
+
+  { group: "Services", title: "Beispielseite 17", url: "https://example.com/17" },
+
+  { group: "Services", title: "Beispielseite 18", url: "https://example.com/18" },
+
+  { group: "Services", title: "Beispielseite 19", url: "https://example.com/19" },
+
+  { group: "Services", title: "Beispielseite 20", url: "https://example.com/20" },
+
+];
+
+/* ============================================================ */
+
+
+const list = document.getElementById("list");
+
+const empty = document.getElementById("empty");
+
+const q = document.getElementById("q");
+
+
+function esc(s) {
+
+  return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+}
+
+function host(u) {
+
+  try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
+
+}
+
+
+function render(filter = "") {
+
+  const f = filter.trim().toLowerCase();
+
+  const items = LINKS.filter(l => (l.title + " " + (l.desc || "") + " " + (l.group || "") + " " + l.url).toLowerCase().includes(f));
+
+  const groups = new Map();
+
+  items.forEach(l => {
+
+    const g = l.group || "";
+
+    if (!groups.has(g)) groups.set(g, []);
+
+    groups.get(g).push(l);
+
+  });
+
+  list.innerHTML = [...groups].map(([g, ls]) =>
+
+    `<section>${g ? `<h2>${esc(g)}</h2>` : ""}<div class="grid">${ls.map(l => `
+
+      <a class="card" href="${esc(l.url)}" target="_blank" rel="noopener">
+
+        <span class="mono" aria-hidden="true">${esc((l.title || "?").trim().charAt(0).toUpperCase())}</span>
+
+        <span class="body">
+
+          <span class="title">${esc(l.title)}</span>
+
+          ${l.desc ? `<span class="desc">${esc(l.desc)}</span>` : ""}
+
+          <span class="host">${esc(host(l.url))}</span>
+
+        </span>
+
+        <span class="arrow" aria-hidden="true">↗</span>
+
+      </a>`).join("")}</div></section>`
+
+  ).join("");
+
+  empty.style.display = items.length ? "none" : "block";
+
+}
+
+
+q.addEventListener("input", () => render(q.value));
+
+render();
+
+</script>
+
+</body>
+
+</html>
+
+    <p id="sitzung"></p>
+
+    <button class="logout" onclick="abmelden()">
+        Abmelden
+    </button>
+
+</div>
+
+
+<script>
+
+// ==========================================
+// KONFIGURATION
+// ==========================================
+
+// Hier den SHA-256-Hash des Passwortes eintragen
+const PASSWORT_HASH = "ea72c79594296e45b8c2a296644d988581f58cfac6601d122ed0a8bd7c02e8bf";
+
+// Automatische Abmeldung nach 15 Minuten
+const TIMEOUT = 15 * 60 * 1000;
+
+let letzterKontakt = Date.now();
+let timer;
+
+
+// ==========================================
+// SHA-256 HASH ERMITTELN
+// ==========================================
+
+async function sha256(text) {
+
+    const daten = new TextEncoder().encode(text);
+
+    const hash = await crypto.subtle.digest(
+        "SHA-256",
+        daten
+    );
+
+    return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+
+}
+
+
+// ==========================================
+// ANMELDUNG
+// ==========================================
+
+async function anmelden() {
+
+    const eingabe =
+        document.getElementById("passwort").value;
+
+    const meldung =
+        document.getElementById("meldung");
+
+    meldung.textContent = "";
+
+    if (!eingabe) {
+        meldung.textContent = "Bitte Passwort eingeben.";
+        return;
+    }
+
+    const hash = await sha256(eingabe);
+
+    if (hash === PASSWORT_HASH) {
+
+        document.getElementById("login").style.display = "none";
+
+        document.getElementById("inhalt").style.display = "block";
+
+        document.getElementById("passwort").value = "";
+
+        letzterKontakt = Date.now();
+
+        timerStarten();
+
+    } else {
+
+        meldung.textContent = "Falsches Passwort!";
+
+        document.getElementById("passwort").value = "";
+
+    }
+
+}
+
+
+// ==========================================
+// ENTER-TASTE
+// ==========================================
+
+document.getElementById("passwort")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            anmelden();
+        }
+
+    });
+
+
+// ==========================================
+// INAKTIVITÄT ERKENNEN
+// ==========================================
+
+function aktivitaetErkennen() {
+
+    if (
+        document.getElementById("inhalt").style.display === "block"
+    ) {
+        letzterKontakt = Date.now();
+    }
+
+}
+
+[
+    "mousemove",
+    "mousedown",
+    "keydown",
+    "touchstart",
+    "scroll"
+].forEach(event => {
+
+    document.addEventListener(
+        event,
+        aktivitaetErkennen,
+        { passive: true }
+    );
+
+});
+
+
+// ==========================================
+// AUTOMATISCHE ABMELDUNG
+// ==========================================
+
+function timerStarten() {
+
+    clearInterval(timer);
+
+    timer = setInterval(function() {
+
+        const vergangen = Date.now() - letzterKontakt;
+
+        const verbleibend = TIMEOUT - vergangen;
+
+        if (verbleibend <= 0) {
+
+            abmelden();
+
+            alert("Sitzung abgelaufen. Bitte erneut anmelden.");
+
+        } else {
+
+            const minuten = Math.floor(verbleibend / 60000);
+
+            const sekunden = Math.floor(
+                (verbleibend % 60000) / 1000
+            );
+
+            document.getElementById("sitzung").textContent =
+                "Automatische Abmeldung bei Inaktivität: " +
+                minuten + ":" +
+                String(sekunden).padStart(2, "0") +
+                " Minuten";
+
+        }
+
+    }, 1000);
+
+}
+
+
+// ==========================================
+// ABMELDUNG
+// ==========================================
+
+function abmelden() {
+
+    clearInterval(timer);
+
+    document.getElementById("inhalt").style.display = "none";
+
+    document.getElementById("login").style.display = "block";
+
+    document.getElementById("passwort").value = "";
+
+    document.getElementById("meldung").textContent = "";
+
+    letzterKontakt = Date.now();
+
+}
+
+</script>
+
+</body>
+</html>
